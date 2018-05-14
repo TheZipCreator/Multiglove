@@ -1,6 +1,6 @@
 box = {}
 player = {}
-
+vol = {}
 function love.load()
   
   player.x = 10
@@ -24,29 +24,33 @@ function love.load()
       rv.h = h
       return rv
     end
-  box[1] = cb(100,100,10,100)
+  box[1] = cb(100,400,200,200)
 end
 
 function love.update(dt)
   new = {}
   new.x = player.x
   new.y = player.y
+  vol = 2
+  new.y = new.y + vol
     if love.keyboard.isDown('d') then
       new.x = new.x+5
     elseif love.keyboard.isDown('a') then
         new.x = new.x-5
-    elseif love.keyboard.isDown('s') then
-        new.y = new.y+5
-    elseif love.keyboard.isDown('w') then
-        new.y = new.y-5
+    
     end
     
    for i=1,#box do
       if coln(box[i].x,box[i].w,box[i].y,box[i].h,new.x,new.y,player.w,player.h) == false then
              player.x = new.x
              player.y = new.y
-    
     end
+    if coln(box[i].x,box[i].w,box[i].y,box[i].h,new.x,new.y,player.w,player.h) == false then
+      vol = vol + 1
+    end
+    if coln(box[i].x,box[i].w,box[i].y,box[i].h,new.x,new.y,player.w,player.h) == true then
+      vol = 0
+      end
 end
 end
 function love.draw()
@@ -57,3 +61,10 @@ function love.draw()
   
   
 end
+
+
+
+
+
+  
+        
