@@ -5,6 +5,8 @@ function love.load()
   
   player.x = 10
   player.y = 10
+  player.w = 10;
+  player.h = 10;
   function coln(wallx,wallw,wally,wallh,playerx,playery,playerh,playerw)  
   if wallx < playerx + playerw and
     playerx < wallx + wallw and
@@ -15,11 +17,12 @@ function love.load()
     return false
     end
     function cb(x,y,w,h)
-    rv = {}
+      rv = {}
       rv.x = x
       rv.y = y
       rv.w = w
       rv.h = h
+      return rv
     end
   box[1] = cb(100,100,10,100)
 end
@@ -33,23 +36,24 @@ function love.update(dt)
     elseif love.keyboard.isDown('a') then
         new.x = new.x-5
     elseif love.keyboard.isDown('s') then
-        new.y = new.y-5
+        new.y = new.y+5
     elseif love.keyboard.isDown('w') then
-        new.y = new.y +5
+        new.y = new.y-5
     end
     
    for i=1,#box do
-      if coln(box[i].x,box[i].y,box[i].w,box[i].h,player.x,player.y,player.w,player.h) == false then
+      if coln(box[i].x,box[i].w,box[i].y,box[i].h,new.x,new.y,player.w,player.h) == false then
              player.x = new.x
              player.y = new.y
     
     end
 end
 end
-function love.graphics()
+function love.draw()
   for i=1,#box do
     love.graphics.rectangle('fill',box[i].x,box[i].y,box[i].w,box[i].h)
   end
+  love.graphics.rectangle('fill', player.x, player.y, player.w, player.h)
   
   
-  end
+end
