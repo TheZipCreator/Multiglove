@@ -1,6 +1,8 @@
 box = {}
 player = {}
 vol = {}
+onplat = false
+
 function love.load()
   
   player.x = 10
@@ -32,26 +34,26 @@ function love.update(dt)
   new.x = player.x
   new.y = player.y
   vol = 2
-  new.y = new.y + vol
-    if love.keyboard.isDown('d') then
-      new.x = new.x+5
-    elseif love.keyboard.isDown('a') then
-        new.x = new.x-5
-    
-    end
-    
-   for i=1,#box do
-      if coln(box[i].x,box[i].w,box[i].y,box[i].h,new.x,new.y,player.w,player.h) == false then
-             player.x = new.x
-             player.y = new.y
-    end
-    if coln(box[i].x,box[i].w,box[i].y,box[i].h,new.x,new.y,player.w,player.h) == false then
-      vol = vol + 1
-    end
-    if coln(box[i].x,box[i].w,box[i].y,box[i].h,new.x,new.y,player.w,player.h) == true then
-      vol = 0
+  if love.keyboard.isDown('d') then
+    new.x = new.x+5
+  elseif love.keyboard.isDown('a') then
+    new.x = new.x-5
+  end
+  onplat = false
+  for i=1,#box do
+      if coln(box[i].x,box[i].w,box[i].y,box[i].h,new.x,new.y,player.w,player.h) == true then
+        onplat = true
       end
-end
+  end
+  if onplat == false then
+    new.y = new.y+vol
+  end
+  player.x = new.x
+  for i=1,#box do
+      if coln(box[i].x,box[i].w,box[i].y,box[i].h,new.x,new.y,player.w,player.h) == false then
+        player.y = new.y
+      end
+  end
 end
 function love.draw()
   for i=1,#box do
@@ -61,10 +63,3 @@ function love.draw()
   
   
 end
-
-
-
-
-
-  
-        
