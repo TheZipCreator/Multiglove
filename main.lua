@@ -17,7 +17,7 @@ function love.load()
       return true
     end
     return false
-    end
+  end
     function cb(x,y,w,h)
       rv = {}
       rv.x = x
@@ -41,16 +41,16 @@ function love.update(dt)
   end
   onplat = false
   for i=1,#box do
-      if coln(box[i].x,box[i].w,box[i].y,box[i].h,new.x,new.y,player.w,player.h) == true then
+      if coln(box[i].x,box[i].w,box[i].y,box[i].h,new.x,new.y+vol,player.w,player.h) == true then
         onplat = true
       end
   end
   if onplat == false then
     new.y = new.y+vol
   end
-  player.x = new.x
   for i=1,#box do
       if coln(box[i].x,box[i].w,box[i].y,box[i].h,new.x,new.y,player.w,player.h) == false then
+        player.x = new.x
         player.y = new.y
       end
   end
