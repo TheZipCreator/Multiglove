@@ -56,6 +56,7 @@ function love.update(dt)
   end
 end
 function love.draw()
+  love.graphics.translate((-player.x-love.graphics.getWidth()/2)+love.graphics.getWidth(), (-player.y-love.graphics.getHeight()/2)+love.graphics.getHeight())
   for i=1,#box do
     love.graphics.rectangle('fill',box[i].x,box[i].y,box[i].w,box[i].h)
   end
