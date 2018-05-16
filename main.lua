@@ -1,4 +1,5 @@
 require 'animation'
+require 'talking'
 
 box = {}
 player = {}
@@ -76,6 +77,20 @@ function love.update(dt)
       player.y = new.y
     end
   end
+  temp = false
+  if love.keyboard.isDown('p') then
+    temp = true
+    if pos > 0 and pp == false then
+      pos = pos+1
+      if pos > #di  then
+        pos = 0
+      end
+    end
+  if temp == false then
+    pp = false
+  else
+    pp = true
+  end
 end
 function love.draw()
   for i=1,40 do
@@ -89,6 +104,13 @@ function love.draw()
     player.animation.curr = 2
   end
   show(player.animation, player.x, player.y)
-  
+  chatbx = player.x+200
+  chatby = player.y-280
+  if pos > 0 then
+    love.graphics.rectangle('line',chatbx,chatby,200,100)
+    love.graphics.print(di[pos].speaker,chatbx,chatby-15)
+    love.graphics.print(di[pos].message,chatbx,chatby)
+    print(di[pos].speaker)
+  end
   
 end
