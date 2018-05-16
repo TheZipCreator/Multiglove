@@ -1,3 +1,5 @@
+require 'animation'
+require 'talking'
 box = {}
 player = {}
 vol = 0
@@ -5,6 +7,7 @@ onplat = false
 images = {}
 
 function love.load()
+ 
   images[1] = love.graphics.newImage("data/back.png")
   player.x = 255
   player.y = 0
@@ -53,11 +56,18 @@ function love.update(dt)
   else
     vol = 0
   end
+  if love.keyboard.isDown('p') then
+  pos = pos+1
+  if pos > #dialouge  then
+    pos = 0
+  end
+  
   if love.keyboard.isDown('space') and onplat == true then
     vol = -3
   end
   if vol < 0 then
     new.y = new.y+vol
+  end
   end
   for i=1,#box do
       if coln(box[i].x,box[i].w,box[i].y,box[i].h,new.x,new.y+vol,player.w,player.h) == false then
@@ -66,6 +76,7 @@ function love.update(dt)
       end
   end
 end
+
 function love.draw()
   for i=1,40 do
     love.graphics.draw(images[1], ((i-20)*800)-player.x/5, 0)
@@ -76,5 +87,8 @@ function love.draw()
   end
   love.graphics.rectangle('fill', player.x, player.y, player.w, player.h)
   
+  if pos < 1 then
+    love.graphics.rectangle('line',player.x+200,player.y-280,200,100)
+  end
   
 end
