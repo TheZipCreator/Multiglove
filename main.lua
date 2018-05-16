@@ -48,10 +48,10 @@ function love.update(dt)
   new.y = player.y
   vol = vol+0.1
   if love.keyboard.isDown('d') then
-    new.x = new.x+5
+    new.x = new.x+100
     moving = true
   elseif love.keyboard.isDown('a') then
-    new.x = new.x-5
+    new.x = new.x-100
     moving = true
   end
   onplat = false
@@ -86,6 +86,7 @@ function love.update(dt)
         pos = 0
       end
     end
+  end
   if temp == false then
     pp = false
   else
@@ -94,7 +95,7 @@ function love.update(dt)
 end
 function love.draw()
   for i=1,40 do
-    love.graphics.draw(images[1], ((i-20)*800)-player.x/5, 0)
+    love.graphics.draw(images[1], ((i-20)*800)-player.x/5, -player.y/5)
   end
   love.graphics.translate((-player.x-love.graphics.getWidth()/2)+love.graphics.getWidth(), (-player.y-love.graphics.getHeight()/2)+love.graphics.getHeight())
   for i=1,#box do
